@@ -1,18 +1,24 @@
-# p5.collide2D
-![p5.collide](p5collide2d.png)
 
-#### A 2d collision detection library for p5.js
-p5.collide2D provides tools for calculating collision detection for 2D geometry with p5.js.
+# NOTE: THIS IS IN ALPHA AND IS CURRENTLY NOT RECOMMENDED FOR USE! However, you can use the optimized functions of the p5collide2D file (which currently accounts for rectMode corner and center) without problem
+# So far though, these are just promises
 
-p5.collide2D contains some versions of, and references to, the functions in [Jeffrey Thompson's Collision Detection Book](http://www.jeffreythompson.org/collision-detection/). His code is [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), so, this is too! I highly, highly, reccomend [reading his book](http://www.jeffreythompson.org/collision-detection/) to better understand all of the details involved in collision detection. Implementing this library into your code will be much easier and more efficent after reading it!
+# p5.shapeCollide
+![p5.shapeCollide](p5collide2d.png)
+
+#### An optimized, object-based rework of p5.collide2D
+p5.shapeCollide allows you to use the varied shapes of p5.collide2D with the convenience of objects
+
+p5.collide2D contains some versions of, and references to, the functions in [Jeffrey Thompson's Collision Detection Book](http://www.jeffreythompson.org/collision-detection/). His code is [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), so, this is too! I highly, highly, recommend [reading his book](http://www.jeffreythompson.org/collision-detection/) to better understand all of the details involved in collision detection. Implementing this library into your code will be much easier and more efficient after reading it!
 
 It's an incredible resource for this kind of work! – [http://www.jeffreythompson.org/collision-detection/](http://www.jeffreythompson.org/collision-detection/)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
 ## Get Started!
-p5.collide2D assumes the default p5.js rectMode(CORNER) and ellipseMode(CENTER).
-All p5.collide2D functions return `true` if the specified geometry is colliding and `false` if they are not.
+All p5.collide2D functions are still usable and it's documentation still applies, but p5.shapeCollide allows you to use `.collide` at the end of an object and it will push it away
+
+# TODO: edit that v
+````
 
 ### Adding p5.collide2D to your project
 [Download the latest release](https://github.com/bmoren/p5.collide2D/releases/)
@@ -823,3 +829,5 @@ function draw() {
     print('colliding?', hit);
 }
 ```
+````
+# TODO: edit that ^
