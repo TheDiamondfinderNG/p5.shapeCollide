@@ -26,10 +26,14 @@ const replace = require("replace-in-file");
 // EX: v0.7.1 -> v0.8.1  
 try {
     const results = replace.sync({
-        files: "p5.collide2d.js",
+        files: [
+            "p5.collide2d.js",
+            "p5.shapeCollide.js"
+        ],
         // example of what regex does regexr.com/57k30
-        from: /(v)(\d+)\.(\d+)\.(\d+)/g,
-        to: "v" + version,
+        from: /(V)(\d+)\.(\d+)\.(\d+)/g,
+        // Capital V is our stuff :)
+        to: "V" + version,
     });
     console.log("Replacement results:", results);
 } catch (error) {
