@@ -3,7 +3,7 @@ Repo: https://github.com/TheDiamondfinderNG/p5.shapeCollide
 p5.collide2D created by http://benmoren.com
 Modified by https://thediamondfinder.newgrounds.com
 Some functions and code modified version from http://www.jeffreythompson.org/collision-detection
-Version V0.1.2 (ALPHA) | November 8, 2024
+Version V0.1.3 (ALPHA) | November 13, 2024
 CC BY-NC-SA 4.0
 */
 
@@ -36,6 +36,22 @@ p5.prototype.collideRectRect = function (x, y, w, h, x2, y2, w2, h2) {
       y2 - h2 / 2 <= y + h / 2     // r1 bottom edge past r2 top
 };
 
+
+p5.prototype.rectOverlapRect = function (x, y, w, h, x2, y2, w2, h2) {
+  //2d
+  if (w < w2 || h < h2) return false // The first rect CAN'T overlap 
+  if (_renderer._rectMode == CORNER)
+    return x < x2 &&        // r2 left edge past r1 left
+      x + w > x2 + w2 &&    // r1 right edge past r2 right
+      y < y2 &&            // r2 top edge past r1 top
+      y + h > y2 + h2     // r1 bottom edge past r2 bottom
+  else if (_renderer._rectMode == CENTER)
+    return x - w / 2 < x2 - w2 / 2 &&   // r2 left edge past r1 left
+      x + w / 2 > x2 + w2 / 2 &&    // r1 right edge past r2 right
+      y - h / 2 < y2 - h2 / 2 &&   // r2 top edge past r1 top
+      y + h / 2 > y2 + h2 / 2     // r1 bottom edge past r2 bottom
+};
+
 // p5.vector version of collideRectRect
 p5.prototype.collideRectRectVector = function (p1, sz, p2, sz2) {
   return p5.prototype.collideRectRect(p1.x, p1.y, sz.x, sz.y, p2.x, p2.y, sz2.x, sz2.y)
@@ -62,6 +78,29 @@ p5.prototype.collideRectCircle = function (rx, ry, rw, rh, cx, cy, diameter) {
   // if the distance is less than the radius, collision!
   return distance <= diameter / 2;
 };
+
+
+p5.prototype.rectOverlapCircle = function (rx, ry, rw, rh, cx, cy, diameter) {
+  //2d
+  // temporary variables to set edges for testing
+  // which edge is closest?
+  let testX, testY
+  if (rw < diameter && rh < diameter) return false
+  if (_renderer._rectMode == CORNER) {
+    testX = rx + rw / 2 // left and right edges
+    testY = rx + rh / 2 // top and bottom edges
+  }
+  else if (_renderer._rectMode == CENTER) {
+    testX = cx < rx - rw / 2 ? rx - rw / 2 : this.min(cx, rx + rw / 2) // left and right edges
+    testY = cy < ry - rh / 2 ? ry - rh / 2 : this.min(cy, ry + rh / 2) // top and bottom edges
+  }
+
+  // // get distance from closest edges
+  let distance = this.dist(cx, cy, testX, testY)
+
+  // if the distance is less than the radius, collision!
+  return rx <= cx - diameter / 2 && rx + rw >= cx + diameter / 2 && ry <= cy - diameter / 2 && ry + rh >= cy + diameter / 2;
+}
 
 // p5.vector version of collideRectCircle
 p5.prototype.collideRectCircleVector = function (r, sz, c, diameter) {
